@@ -19,29 +19,29 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
-      <div className="container-page flex h-16 items-center justify-between gap-3 lg:h-20">
-        <Link to="/" className="flex min-w-0 items-center gap-2.5" aria-label={SITE.name}>
+      <div className="container-page flex h-16 items-center justify-between gap-2 lg:h-20 lg:gap-4">
+        <Link to="/" className="flex min-w-0 items-center gap-2" aria-label={SITE.name}>
           <img
             src={logo}
             alt=""
             width={44}
             height={44}
             fetchPriority="high"
-            className="h-10 w-10 shrink-0 rounded-lg object-cover shadow-card ring-1 ring-border lg:h-12 lg:w-12"
+            className="h-9 w-9 shrink-0 rounded-lg object-cover shadow-card ring-1 ring-border lg:h-11 lg:w-11"
           />
           <div className="min-w-0 leading-tight">
-            <div className="truncate font-display text-base font-bold tracking-tight sm:text-lg">{SITE.short}</div>
+            <div className="truncate font-display text-sm font-bold tracking-tight sm:text-base lg:text-lg">{SITE.short}</div>
             <div className="hidden text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:block">
               Linen & Laundry
             </div>
           </div>
         </Link>
-        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
           {NAV.map((n) => (
             <Link
               key={n.to}
               to={n.to}
-              className="rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground"
+              className="rounded-md px-2.5 py-2 text-[13px] font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground xl:px-3 xl:text-sm"
               activeProps={{ className: "text-foreground bg-accent" }}
               activeOptions={{ exact: n.to === "/" }}
             >
@@ -49,14 +49,14 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 xl:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <a
             href={`tel:${SITE.phone}`}
             className="hidden items-center gap-2 rounded-md px-2 py-2 text-sm font-medium text-foreground/80 hover:text-foreground 2xl:flex"
           >
             <Phone className="h-4 w-4" /> {SITE.phoneDisplay}
           </a>
-          <Button asChild variant="silver" size="sm">
+          <Button asChild variant="silver" size="sm" className="hidden xl:inline-flex">
             <Link to="/book-pickup">Book Pickup</Link>
           </Button>
           <Button asChild variant="hero" size="sm">
@@ -64,7 +64,7 @@ export function Header() {
           </Button>
         </div>
         <button
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border xl:hidden"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -73,7 +73,7 @@ export function Header() {
         </button>
       </div>
       {open && (
-        <div className="border-t border-border bg-background xl:hidden">
+        <div className="border-t border-border bg-background lg:hidden">
           <div className="container-page flex flex-col gap-1 py-3">
             {NAV.map((n) => (
               <Link
