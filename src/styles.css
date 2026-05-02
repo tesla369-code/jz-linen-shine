@@ -58,6 +58,22 @@
 @keyframes scale-in { from { opacity: 0; transform: scale(.96) } to { opacity: 1; transform: scale(1) } }
 @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
 @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.95); }
+}
+@keyframes shimmer-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes bubble-rise {
+  0% { transform: translateY(20px) scale(0.8); opacity: 0; }
+  20% { opacity: 0.6; }
+  100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+}
+@keyframes spin-slow { from { transform: rotate(0) } to { transform: rotate(360deg) } }
 
 :root {
   --radius: 0.75rem;
