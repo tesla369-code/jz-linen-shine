@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as BookPickupRouteImport } from './routes/book-pickup'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
@@ -17,6 +19,16 @@ import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookPickupRoute = BookPickupRouteImport.update({
+  id: '/book-pickup',
+  path: '/book-pickup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -38,12 +50,16 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/book-pickup': typeof BookPickupRoute
+  '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/book-pickup': typeof BookPickupRoute
+  '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/services/$slug': typeof ServicesSlugRoute
 }
@@ -51,20 +67,43 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/book-pickup': typeof BookPickupRoute
+  '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/services' | '/services/$slug'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/book-pickup'
+    | '/quote'
+    | '/services'
+    | '/services/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/services' | '/services/$slug'
-  id: '__root__' | '/' | '/about' | '/services' | '/services/$slug'
+  to:
+    | '/'
+    | '/about'
+    | '/book-pickup'
+    | '/quote'
+    | '/services'
+    | '/services/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/book-pickup'
+    | '/quote'
+    | '/services'
+    | '/services/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BookPickupRoute: typeof BookPickupRoute
+  QuoteRoute: typeof QuoteRoute
   ServicesRoute: typeof ServicesRouteWithChildren
 }
 
@@ -75,6 +114,20 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book-pickup': {
+      id: '/book-pickup'
+      path: '/book-pickup'
+      fullPath: '/book-pickup'
+      preLoaderRoute: typeof BookPickupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -116,6 +169,8 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BookPickupRoute: BookPickupRoute,
+  QuoteRoute: QuoteRoute,
   ServicesRoute: ServicesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
