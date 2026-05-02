@@ -19,23 +19,24 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
-      <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Link to="/" className="flex items-center gap-3" aria-label={SITE.name}>
+      <div className="container-page flex h-16 items-center justify-between gap-3 lg:h-20">
+        <Link to="/" className="flex min-w-0 items-center gap-2.5" aria-label={SITE.name}>
           <img
             src={logo}
             alt=""
-            width={48}
-            height={48}
-            className="h-12 w-12 rounded-lg object-cover shadow-card ring-1 ring-border"
+            width={44}
+            height={44}
+            fetchPriority="high"
+            className="h-10 w-10 shrink-0 rounded-lg object-cover shadow-card ring-1 ring-border lg:h-12 lg:w-12"
           />
-          <div className="leading-tight">
-            <div className="font-display text-lg font-bold tracking-tight">{SITE.short}</div>
-            <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+          <div className="min-w-0 leading-tight">
+            <div className="truncate font-display text-base font-bold tracking-tight sm:text-lg">{SITE.short}</div>
+            <div className="hidden text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:block">
               Linen & Laundry
             </div>
           </div>
         </Link>
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Primary">
           {NAV.map((n) => (
             <Link
               key={n.to}
@@ -48,10 +49,10 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden items-center gap-2 xl:flex">
           <a
             href={`tel:${SITE.phone}`}
-            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground"
+            className="hidden items-center gap-2 rounded-md px-2 py-2 text-sm font-medium text-foreground/80 hover:text-foreground 2xl:flex"
           >
             <Phone className="h-4 w-4" /> {SITE.phoneDisplay}
           </a>
@@ -63,7 +64,7 @@ export function Header() {
           </Button>
         </div>
         <button
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border lg:hidden"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border xl:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -72,7 +73,7 @@ export function Header() {
         </button>
       </div>
       {open && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="border-t border-border bg-background xl:hidden">
           <div className="container-page flex flex-col gap-1 py-3">
             {NAV.map((n) => (
               <Link
@@ -86,6 +87,9 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            <a href={`tel:${SITE.phone}`} className="mt-1 flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-accent">
+              <Phone className="h-4 w-4 text-primary" /> {SITE.phoneDisplay}
+            </a>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <Button asChild variant="silver" size="sm">
                 <Link to="/book-pickup" onClick={() => setOpen(false)}>Book Pickup</Link>
