@@ -21,7 +21,13 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-20">
         <Link to="/" className="flex items-center gap-3" aria-label={SITE.name}>
-          <img src={logo} alt="" width={40} height={40} className="h-10 w-10 rounded-md" />
+          <img
+            src={logo}
+            alt=""
+            width={48}
+            height={48}
+            className="h-12 w-12 rounded-lg object-cover shadow-card ring-1 ring-border"
+          />
           <div className="leading-tight">
             <div className="font-display text-lg font-bold tracking-tight">{SITE.short}</div>
             <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">

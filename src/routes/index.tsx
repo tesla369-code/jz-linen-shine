@@ -85,6 +85,51 @@ function Hero() {
         <img src={heroImg} alt="" width={1920} height={1080} fetchPriority="high" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.18_0.06_255)]/95 via-[oklch(0.20_0.08_250)]/85 to-transparent" />
       </div>
+      {/* Animated background layers */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute -top-32 -left-24 h-[28rem] w-[28rem] rounded-full bg-[oklch(0.55_0.18_240)]/35 blur-3xl"
+          style={{ animation: "blob 14s ease-in-out infinite" }}
+        />
+        <div
+          className="absolute top-1/3 -right-32 h-[32rem] w-[32rem] rounded-full bg-[oklch(0.70_0.16_220)]/25 blur-3xl"
+          style={{ animation: "blob 18s ease-in-out infinite reverse" }}
+        />
+        <div
+          className="absolute -bottom-40 left-1/3 h-[26rem] w-[26rem] rounded-full bg-[oklch(0.85_0.10_200)]/20 blur-3xl"
+          style={{ animation: "blob 22s ease-in-out infinite" }}
+        />
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+            maskImage: "radial-gradient(ellipse at center, black 40%, transparent 75%)",
+          }}
+        />
+        {/* Floating bubbles */}
+        {[
+          { l: "8%", s: 14, d: 0, dur: 14 },
+          { l: "22%", s: 8, d: 3, dur: 18 },
+          { l: "38%", s: 18, d: 6, dur: 16 },
+          { l: "55%", s: 10, d: 2, dur: 20 },
+          { l: "72%", s: 22, d: 5, dur: 13 },
+          { l: "88%", s: 12, d: 1, dur: 17 },
+        ].map((b, i) => (
+          <span
+            key={i}
+            className="absolute bottom-0 rounded-full bg-white/40 ring-1 ring-white/30 backdrop-blur-sm"
+            style={{
+              left: b.l,
+              width: b.s,
+              height: b.s,
+              animation: `bubble-rise ${b.dur}s linear ${b.d}s infinite`,
+            }}
+          />
+        ))}
+      </div>
       <div className="container-page relative grid gap-10 py-20 lg:grid-cols-2 lg:gap-8 lg:py-32">
         <div className="animate-[fade-up_0.8s_ease-out]">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest backdrop-blur">
