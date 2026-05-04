@@ -19,29 +19,29 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
-      <div className="container-page flex h-16 items-center justify-between gap-2 lg:h-20 lg:gap-4">
-        <Link to="/" className="flex min-w-0 items-center gap-2" aria-label={SITE.name}>
+      <div className="container-page flex h-16 items-center justify-between gap-2 lg:h-[72px] lg:gap-3">
+        <Link to="/" className="flex min-w-0 shrink items-center gap-2" aria-label={SITE.name}>
           <img
             src={logo}
             alt=""
             width={44}
             height={44}
             fetchPriority="high"
-            className="h-9 w-9 shrink-0 rounded-lg object-cover shadow-card ring-1 ring-border lg:h-11 lg:w-11"
+            className="h-9 w-9 shrink-0 rounded-lg object-cover shadow-card ring-1 ring-border lg:h-10 lg:w-10"
           />
           <div className="min-w-0 leading-tight">
-            <div className="truncate font-display text-sm font-bold tracking-tight sm:text-base lg:text-lg">{SITE.short}</div>
-            <div className="hidden text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:block">
+            <div className="truncate font-display text-sm font-bold tracking-tight sm:text-base lg:text-base xl:text-lg">{SITE.short}</div>
+            <div className="hidden text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:block xl:block">
               Linen & Laundry
             </div>
           </div>
         </Link>
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
+        <nav className="hidden min-w-0 items-center gap-0 lg:flex" aria-label="Primary">
           {NAV.map((n) => (
             <Link
               key={n.to}
               to={n.to}
-              className="rounded-md px-2.5 py-2 text-[13px] font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground xl:px-3 xl:text-sm"
+              className="whitespace-nowrap rounded-md px-2 py-2 text-[12.5px] font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-foreground xl:px-3 xl:text-sm"
               activeProps={{ className: "text-foreground bg-accent" }}
               activeOptions={{ exact: n.to === "/" }}
             >
@@ -49,7 +49,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden shrink-0 items-center gap-2 lg:flex">
           <a
             href={`tel:${SITE.phone}`}
             className="hidden items-center gap-2 rounded-md px-2 py-2 text-sm font-medium text-foreground/80 hover:text-foreground 2xl:flex"
