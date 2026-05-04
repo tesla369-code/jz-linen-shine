@@ -19,7 +19,7 @@ const localBusinessSchema = {
     postalCode: SITE.address.postcode,
     addressCountry: "GB",
   },
-  geo: { "@type": "GeoCoordinates", latitude: 51.5074, longitude: -0.0235 },
+  geo: { "@type": "GeoCoordinates", latitude: 51.5742, longitude: -1.7726 },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
