@@ -73,7 +73,11 @@ export function Header() {
         </button>
       </div>
       {open && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div
+          className="lg:hidden absolute inset-x-0 top-full border-t border-border bg-background/95 backdrop-blur-xl shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
+          role="dialog"
+          aria-modal="true"
+        >
           <div className="container-page flex flex-col gap-1 py-3">
             {NAV.map((n) => (
               <Link
