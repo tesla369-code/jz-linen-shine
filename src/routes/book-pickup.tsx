@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Truck, Clock, ShieldCheck } from "lucide-react";
 import { SITE } from "@/lib/site";
+import { submitBooking } from "@/server/booking.functions";
 
 export const Route = createFileRoute("/book-pickup")({
   head: () => ({
@@ -45,14 +46,20 @@ function BookPickup() {
             onSubmit={(e) => {
               e.preventDefault();
               setSubmitting(true);
-              const fd = new FormData(e.currentTarget);
+              const form = e.currentTarget;
+              const fd = new FormData(form);
               const r = schema.safeParse(Object.fromEntries(fd));
               if (!r.success) { toast.error(r.error.issues[0].message); setSubmitting(false); return; }
-              setTimeout(() => {
-                toast.success("Pickup request received — we'll confirm by email within 30 minutes.");
-                (e.target as HTMLFormElement).reset();
-                setSubmitting(false);
-              }, 700);
+              submitBooking({ data: r.data })
+                .then(() => {
+                  toast.success("Pickup request received — confirmation email sent.");
+                  form.reset();
+                })
+                .catch((err) => {
+                  console.error(err);
+                  toast.error("Could not send your booking. Please try again or call us.");
+                })
+                .finally(() => setSubmitting(false));
             }}
           >
             <h2 className="font-display text-2xl font-bold">Pickup details</h2>
