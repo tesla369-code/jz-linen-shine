@@ -42,8 +42,8 @@ function Contact() {
             <ContactCard icon={Clock} title="Opening hours" value={SITE.hours} sub="Sundays: emergency line only" />
             <div className="overflow-hidden rounded-2xl border border-border shadow-card">
               <iframe
-                title="JZ Linen location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4965.3!2d0.0!3d51.5074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sLondon!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+                title="JZ Linen location — Stanley House, Bramble Road, Swindon SN2 8ER"
+                src="https://www.google.com/maps?q=Stanley+House,+Bramble+Road,+Swindon,+SN2+8ER,+England&output=embed"
                 width="100%" height="280" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 style={{ border: 0 }}
               />

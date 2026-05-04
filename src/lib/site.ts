@@ -7,12 +7,12 @@ export const SITE = {
   phoneDisplay: "020 4538 9921",
   whatsapp: "447700900123",
   whatsappMessage: "Hello JZ Linen, I'd like to enquire about your services.",
-  email: "hello@jzlinen.co.uk",
+  email: "moin75678@gmail.com",
   address: {
-    street: "Unit 14, Riverside Industrial Estate",
-    city: "London",
-    postcode: "E16 2QT",
-    country: "United Kingdom",
+    street: "Stanley House, Bramble Road",
+    city: "Swindon",
+    postcode: "SN2 8ER",
+    country: "England, United Kingdom",
   },
   hours: "Mon–Sat 6:00 – 20:00",
   social: {
