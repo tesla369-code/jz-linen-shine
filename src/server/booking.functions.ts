@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
 const OWNER_EMAIL = "moin75678@gmail.com";
@@ -103,6 +104,24 @@ export const submitBooking = createServerFn({ method: "POST" })
     await sendGmail(
       buildRaw(data.email, "Your JZ Linen pickup request", customerHtml),
     );
+
+    // Persist to database (don't fail the user request if DB write fails — emails already sent)
+    try {
+      await supabaseAdmin.from("bookings").insert({
+        business: data.business,
+        contact: data.contact,
+        email: data.email,
+        phone: data.phone,
+        postcode: data.postcode,
+        address: data.address,
+        service: data.service,
+        date: data.date,
+        slot: data.slot,
+        notes: data.notes || null,
+      });
+    } catch (err) {
+      console.error("Failed to persist booking:", err);
+    }
 
     return { ok: true };
   });
