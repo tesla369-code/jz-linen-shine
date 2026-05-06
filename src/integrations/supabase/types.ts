@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          address: string
+          admin_notes: string | null
+          business: string
+          contact: string
+          created_at: string
+          date: string
+          email: string
+          id: string
+          notes: string | null
+          phone: string
+          postcode: string
+          service: string
+          slot: string
+          status: Database["public"]["Enums"]["booking_status"]
+          updated_at: string
+        }
+        Insert: {
+          address: string
+          admin_notes?: string | null
+          business: string
+          contact: string
+          created_at?: string
+          date: string
+          email: string
+          id?: string
+          notes?: string | null
+          phone: string
+          postcode: string
+          service: string
+          slot: string
+          status?: Database["public"]["Enums"]["booking_status"]
+          updated_at?: string
+        }
+        Update: {
+          address?: string
+          admin_notes?: string | null
+          business?: string
+          contact?: string
+          created_at?: string
+          date?: string
+          email?: string
+          id?: string
+          notes?: string | null
+          phone?: string
+          postcode?: string
+          service?: string
+          slot?: string
+          status?: Database["public"]["Enums"]["booking_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +76,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      booking_status: "new" | "confirmed" | "completed" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +203,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      booking_status: ["new", "confirmed", "completed", "cancelled"],
+    },
   },
 } as const
