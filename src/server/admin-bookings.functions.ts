@@ -52,7 +52,7 @@ export const updateBooking = createServerFn({ method: "POST" })
   )
   .handler(async ({ data }) => {
     checkPassword(data.password);
-    const patch: Record<string, unknown> = {};
+    const patch: { status?: typeof STATUSES[number]; admin_notes?: string } = {};
     if (data.status) patch.status = data.status;
     if (typeof data.admin_notes === "string") patch.admin_notes = data.admin_notes;
     const { error } = await supabaseAdmin.from("bookings").update(patch).eq("id", data.id);
