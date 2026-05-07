@@ -21,7 +21,6 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
-import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -83,11 +82,6 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
 } as any)
-const AdminBookingsRoute = AdminBookingsRouteImport.update({
-  id: '/admin/bookings',
-  path: '/admin/bookings',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -101,7 +95,6 @@ export interface FileRoutesByFullPath {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/terms': typeof TermsRoute
-  '/admin/bookings': typeof AdminBookingsRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesByTo {
@@ -116,7 +109,6 @@ export interface FileRoutesByTo {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/terms': typeof TermsRoute
-  '/admin/bookings': typeof AdminBookingsRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesById {
@@ -132,7 +124,6 @@ export interface FileRoutesById {
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRouteWithChildren
   '/terms': typeof TermsRoute
-  '/admin/bookings': typeof AdminBookingsRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRouteTypes {
@@ -149,7 +140,6 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/terms'
-    | '/admin/bookings'
     | '/services/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -164,7 +154,6 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/terms'
-    | '/admin/bookings'
     | '/services/$slug'
   id:
     | '__root__'
@@ -179,7 +168,6 @@ export interface FileRouteTypes {
     | '/quote'
     | '/services'
     | '/terms'
-    | '/admin/bookings'
     | '/services/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -195,7 +183,6 @@ export interface RootRouteChildren {
   QuoteRoute: typeof QuoteRoute
   ServicesRoute: typeof ServicesRouteWithChildren
   TermsRoute: typeof TermsRoute
-  AdminBookingsRoute: typeof AdminBookingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -284,13 +271,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
     }
-    '/admin/bookings': {
-      id: '/admin/bookings'
-      path: '/admin/bookings'
-      fullPath: '/admin/bookings'
-      preLoaderRoute: typeof AdminBookingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -318,8 +298,16 @@ const rootRouteChildren: RootRouteChildren = {
   QuoteRoute: QuoteRoute,
   ServicesRoute: ServicesRouteWithChildren,
   TermsRoute: TermsRoute,
-  AdminBookingsRoute: AdminBookingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
