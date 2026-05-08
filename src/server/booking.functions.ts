@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_mail/gmail/v1";
 const OWNER_EMAIL = "moin75678@gmail.com";
@@ -62,21 +61,6 @@ async function sendGmail(raw: string) {
 export const submitBooking = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => bookingSchema.parse(data))
   .handler(async ({ data }) => {
-    // Persist booking to database
-    const { error: dbError } = await supabaseAdmin.from("bookings").insert({
-      business: data.business,
-      contact: data.contact,
-      email: data.email,
-      phone: data.phone,
-      postcode: data.postcode,
-      address: data.address,
-      service: data.service,
-      date: data.date,
-      slot: data.slot,
-      notes: data.notes || null,
-    });
-    if (dbError) console.error("[booking] DB insert failed:", dbError);
-
     const rows = [
       ["Business", data.business],
       ["Contact", data.contact],
