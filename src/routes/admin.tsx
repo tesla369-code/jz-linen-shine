@@ -13,7 +13,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 const PIN_KEY = "jz_admin_ok";
-const ADMIN_PIN = "2580"; // local-only gate; change via localStorage if needed
+const ADMIN_PIN = "JzL!nen#2026$Swindon"; // local-only gate
 
 function Admin() {
   const [authed, setAuthed] = useState(false);
@@ -45,10 +45,10 @@ function Admin() {
             }}
           >
             <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow text-primary-foreground"><Lock className="h-5 w-5" /></div>
-            <label className="mb-1.5 block text-sm font-medium">Admin PIN</label>
+            <label className="mb-1.5 block text-sm font-medium">Admin password</label>
             <input type="password" value={pin} onChange={(e) => setPin(e.target.value)} className="h-11 w-full rounded-md border border-input bg-background px-3.5 text-sm outline-none focus:ring-2 focus:ring-ring" />
             <Button type="submit" variant="hero" size="lg" className="mt-4 w-full">Enter</Button>
-            <p className="mt-3 text-xs text-muted-foreground">Default PIN: 2580 (local only — data lives in this browser).</p>
+            <p className="mt-3 text-xs text-muted-foreground">Local-only gate — bookings live in this browser.</p>
           </form>
         </section>
       </>
