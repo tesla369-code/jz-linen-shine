@@ -88,13 +88,13 @@ function ServiceDetail() {
           <div>
             <h2 className="font-display text-2xl font-bold md:text-3xl">What's included</h2>
             <ul className="mt-6 space-y-3">
-              {item.bullets.map((b) => (
+              {item.bullets.map((b: string) => (
                 <li key={b} className="flex items-start gap-3"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" /><span>{b}</span></li>
               ))}
             </ul>
             <h3 className="mt-10 font-display text-xl font-bold">Best suited for</h3>
             <div className="mt-3 flex flex-wrap gap-2">
-              {item.suited.map((s) => <span key={s} className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-medium">{s}</span>)}
+              {item.suited.map((s: string) => <span key={s} className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-medium">{s}</span>)}
             </div>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild variant="hero" size="lg"><Link to="/quote">Get a quote <ArrowRight className="h-4 w-4" /></Link></Button>
