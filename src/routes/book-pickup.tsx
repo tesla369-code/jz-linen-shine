@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Truck, Clock, ShieldCheck } from "lucide-react";
 import { SITE } from "@/lib/site";
 import { submitBooking } from "@/server/booking.functions";
+import { saveBooking } from "@/lib/bookings-store";
 
 export const Route = createFileRoute("/book-pickup")({
   head: () => ({
@@ -50,6 +51,7 @@ function BookPickup() {
               const fd = new FormData(form);
               const r = schema.safeParse(Object.fromEntries(fd));
               if (!r.success) { toast.error(r.error.issues[0].message); setSubmitting(false); return; }
+              try { saveBooking(r.data); } catch (e) { console.error(e); }
               submitBooking({ data: r.data })
                 .then(() => {
                   toast.success("Pickup request received — confirmation email sent.");
