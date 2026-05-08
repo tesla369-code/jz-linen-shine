@@ -87,8 +87,8 @@ function AdminBookings() {
     navigate({ to: "/admin/login" });
   }
 
-  async function updateStatus(id: string, status: string) {
-    const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
+  async function updateStatus(id: string, status: Booking["status"]) {
+    const { error } = await supabase.from("bookings").update({ status: status as never }).eq("id", id);
     if (error) { toast.error("Update failed"); return; }
     toast.success(`Marked as ${status}`);
     setBookings((b) => b.map((x) => x.id === id ? { ...x, status } : x));
@@ -238,7 +238,7 @@ function AdminBookings() {
                 <div>
                   <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Update status</div>
                   <div className="flex flex-wrap gap-2">
-                    {["new", "confirmed", "completed", "cancelled"].map((s) => (
+                    {(["new", "confirmed", "completed", "cancelled"] as const).map((s) => (
                       <Button key={s} size="sm" variant={selected.status === s ? "default" : "outline"}
                         onClick={() => updateStatus(selected.id, s)} className="capitalize">{s}</Button>
                     ))}
