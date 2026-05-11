@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Lock } from "lucide-react";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/login")({
+export const Route = createFileRoute("/admin_/login")({
   head: () => ({ meta: [{ title: "Admin Login | JZ Linen" }, { name: "robots", content: "noindex,nofollow" }] }),
   component: AdminLogin,
 });
