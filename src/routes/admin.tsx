@@ -1,23 +1,22 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { PageHero } from "@/components/site/PageHero";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getBookings, deleteBooking, clearBookings, type StoredBooking } from "@/lib/bookings-store";
 import { toast } from "sonner";
-import { Trash2, Lock, Search } from "lucide-react";
+import { Trash2, Search } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — Bookings | JZ Linen" }, { name: "robots", content: "noindex,nofollow" }] }),
   component: Admin,
 });
 
-const PIN_KEY = "jz_admin_ok";
-const ADMIN_PIN = "JzL!nen#2026$Swindon"; // local-only gate
+const FLAG_KEY = "isAdmin";
 
 function Admin() {
+  const navigate = useNavigate();
   const [authed, setAuthed] = useState(false);
-  const [pin, setPin] = useState("");
   const [items, setItems] = useState<StoredBooking[]>([]);
   const [query, setQuery] = useState("");
   const [from, setFrom] = useState("");
@@ -27,8 +26,12 @@ function Admin() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (sessionStorage.getItem(PIN_KEY) === "1") setAuthed(true);
-  }, []);
+    if (localStorage.getItem(FLAG_KEY) === "true") {
+      setAuthed(true);
+    } else {
+      navigate({ to: "/admin/login" });
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (authed) setItems(getBookings());
@@ -57,29 +60,7 @@ function Admin() {
   useEffect(() => { setPage(1); }, [query, from, to]);
 
   if (!authed) {
-    return (
-      <>
-        <PageHero eyebrow="Admin" title="Sign in" sub="Enter the admin PIN to view bookings." />
-        <section className="container-page py-16">
-          <form
-            className="mx-auto max-w-sm rounded-2xl border border-border bg-card p-6 shadow-card"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (pin === ADMIN_PIN) {
-                sessionStorage.setItem(PIN_KEY, "1");
-                setAuthed(true);
-              } else toast.error("Wrong PIN");
-            }}
-          >
-            <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow text-primary-foreground"><Lock className="h-5 w-5" /></div>
-            <label className="mb-1.5 block text-sm font-medium">Admin password</label>
-            <input type="password" value={pin} onChange={(e) => setPin(e.target.value)} className="h-11 w-full rounded-md border border-input bg-background px-3.5 text-sm outline-none focus:ring-2 focus:ring-ring" />
-            <Button type="submit" variant="hero" size="lg" className="mt-4 w-full">Enter</Button>
-            <p className="mt-3 text-xs text-muted-foreground">Local-only gate — bookings live in this browser.</p>
-          </form>
-        </section>
-      </>
-    );
+    return null;
   }
 
   const refresh = () => setItems(getBookings());
@@ -94,7 +75,7 @@ function Admin() {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={refresh}>Refresh</Button>
-            <Button variant="outline" onClick={() => { sessionStorage.removeItem(PIN_KEY); setAuthed(false); }}>Sign out</Button>
+            <Button variant="outline" onClick={() => { localStorage.removeItem(FLAG_KEY); toast.success("Signed out"); navigate({ to: "/admin/login" }); }}>Sign out</Button>
             <Button
               variant="destructive"
               onClick={() => {
