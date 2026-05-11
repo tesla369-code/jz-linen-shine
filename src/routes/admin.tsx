@@ -34,6 +34,28 @@ function Admin() {
     if (authed) setItems(getBookings());
   }, [authed]);
 
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    const fromTs = from ? new Date(from + "T00:00:00").getTime() : null;
+    const toTs = to ? new Date(to + "T23:59:59").getTime() : null;
+    return items.filter((b) => {
+      if (q) {
+        const hay = `${b.business} ${b.contact} ${b.email} ${b.phone} ${b.service} ${b.postcode} ${b.address} ${b.notes ?? ""}`.toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      const ts = new Date(b.createdAt).getTime();
+      if (fromTs !== null && ts < fromTs) return false;
+      if (toTs !== null && ts > toTs) return false;
+      return true;
+    });
+  }, [items, query, from, to]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const currentPage = Math.min(page, totalPages);
+  const pageItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+  useEffect(() => { setPage(1); }, [query, from, to]);
+
   if (!authed) {
     return (
       <>
@@ -61,28 +83,6 @@ function Admin() {
   }
 
   const refresh = () => setItems(getBookings());
-
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const fromTs = from ? new Date(from + "T00:00:00").getTime() : null;
-    const toTs = to ? new Date(to + "T23:59:59").getTime() : null;
-    return items.filter((b) => {
-      if (q) {
-        const hay = `${b.business} ${b.contact} ${b.email} ${b.phone} ${b.service} ${b.postcode} ${b.address} ${b.notes ?? ""}`.toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
-      const ts = new Date(b.createdAt).getTime();
-      if (fromTs !== null && ts < fromTs) return false;
-      if (toTs !== null && ts > toTs) return false;
-      return true;
-    });
-  }, [items, query, from, to]);
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const currentPage = Math.min(page, totalPages);
-  const pageItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-
-  useEffect(() => { setPage(1); }, [query, from, to]);
 
   return (
     <>
