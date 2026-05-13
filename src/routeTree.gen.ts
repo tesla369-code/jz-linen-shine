@@ -14,6 +14,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BookPickupRouteImport } from './routes/book-pickup'
@@ -47,6 +48,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/book-pickup': typeof BookPickupRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/book-pickup': typeof BookPickupRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/book-pickup': typeof BookPickupRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/quote': typeof QuoteRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/book-pickup'
     | '/contact'
     | '/gallery'
+    | '/login'
     | '/pricing'
     | '/privacy'
     | '/quote'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/book-pickup'
     | '/contact'
     | '/gallery'
+    | '/login'
     | '/pricing'
     | '/privacy'
     | '/quote'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/book-pickup'
     | '/contact'
     | '/gallery'
+    | '/login'
     | '/pricing'
     | '/privacy'
     | '/quote'
@@ -203,6 +215,7 @@ export interface RootRouteChildren {
   BookPickupRoute: typeof BookPickupRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
+  LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   QuoteRoute: typeof QuoteRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -334,6 +354,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookPickupRoute: BookPickupRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
+  LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   QuoteRoute: QuoteRoute,

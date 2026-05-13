@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SITE } from "@/lib/site";
 import logo from "@/assets/logo.png";
@@ -9,7 +9,6 @@ const NAV = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   { to: "/services", label: "Services" },
-  { to: "/pricing", label: "Pricing" },
   { to: "/gallery", label: "Gallery" },
   { to: "/blog", label: "Blog" },
   { to: "/contact", label: "Contact" },
@@ -30,7 +29,9 @@ export function Header() {
             className="h-9 w-9 shrink-0 rounded-lg object-cover shadow-card ring-1 ring-border lg:h-10 lg:w-10"
           />
           <div className="min-w-0 leading-tight">
-            <div className="truncate font-display text-sm font-bold tracking-tight sm:text-base lg:text-base xl:text-lg">{SITE.short}</div>
+            <div className="truncate font-display text-sm font-bold tracking-tight sm:text-base lg:text-base xl:text-lg">
+              {SITE.short}
+            </div>
             <div className="hidden text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:block xl:block">
               Linen & Laundry
             </div>
@@ -58,6 +59,11 @@ export function Header() {
           </a>
           <Button asChild variant="silver" size="sm" className="hidden xl:inline-flex">
             <Link to="/book-pickup">Book Pickup</Link>
+          </Button>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/login">
+              <UserCircle className="h-4 w-4" /> Login / Sign Up
+            </Link>
           </Button>
           <Button asChild variant="hero" size="sm">
             <Link to="/quote">Get Quote</Link>
@@ -91,15 +97,27 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
-            <a href={`tel:${SITE.phone}`} className="mt-1 flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-accent">
+            <a
+              href={`tel:${SITE.phone}`}
+              className="mt-1 flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-foreground/80 hover:bg-accent"
+            >
               <Phone className="h-4 w-4 text-primary" /> {SITE.phoneDisplay}
             </a>
+            <Button asChild variant="outline" size="sm" className="mt-2">
+              <Link to="/login" onClick={() => setOpen(false)}>
+                <UserCircle className="h-4 w-4" /> Login / Sign Up
+              </Link>
+            </Button>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <Button asChild variant="silver" size="sm">
-                <Link to="/book-pickup" onClick={() => setOpen(false)}>Book Pickup</Link>
+                <Link to="/book-pickup" onClick={() => setOpen(false)}>
+                  Book Pickup
+                </Link>
               </Button>
               <Button asChild variant="hero" size="sm">
-                <Link to="/quote" onClick={() => setOpen(false)}>Get Quote</Link>
+                <Link to="/quote" onClick={() => setOpen(false)}>
+                  Get Quote
+                </Link>
               </Button>
             </div>
           </div>

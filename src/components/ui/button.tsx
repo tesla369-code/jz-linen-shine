@@ -16,12 +16,10 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        hero:
-          "bg-gradient-to-r from-primary to-primary-glow text-primary-foreground shadow-elegant hover:shadow-glow hover:-translate-y-0.5 transition-all duration-300",
+        hero: "bg-gradient-to-r from-primary to-primary-glow text-primary-foreground shadow-elegant hover:shadow-glow hover:-translate-y-0.5 transition-all duration-300",
         silver:
           "bg-silver text-silver-foreground border border-border hover:bg-accent transition-colors",
-        whatsapp:
-          "bg-whatsapp text-white shadow-card hover:opacity-90",
+        whatsapp: "bg-whatsapp text-white shadow-card hover:opacity-90",
         outlineHero:
           "border-2 border-primary-foreground/40 text-primary-foreground bg-transparent hover:bg-primary-foreground/10 backdrop-blur-sm",
       },

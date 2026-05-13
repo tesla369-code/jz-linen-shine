@@ -11,7 +11,11 @@ export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
       { title: "Gallery — Inside JZ Linen & Laundry" },
-      { name: "description", content: "A look inside our processing facility, finished linens and delivery operations across the UK." },
+      {
+        name: "description",
+        content:
+          "A look inside our processing facility, finished linens and delivery operations across the UK.",
+      },
       { property: "og:title", content: "Gallery — JZ Linen & Laundry" },
       { property: "og:description", content: "Inside our facility and finished linen work." },
     ],
@@ -31,12 +35,23 @@ const ITEMS = [
 function Gallery() {
   return (
     <>
-      <PageHero eyebrow="Gallery" title="Inside the operation." sub="A look at our facility, our finishes and the team behind every immaculate delivery." />
+      <PageHero
+        eyebrow="Gallery"
+        title="Inside the operation."
+        sub="A look at our facility, our finishes and the team behind every immaculate delivery."
+      />
       <section className="container-page py-16">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           {ITEMS.map((it, i) => (
             <figure key={i} className="group relative overflow-hidden rounded-2xl shadow-card">
-              <img src={it.src} alt={it.label} loading="lazy" width={1024} height={1024} className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              <img
+                src={it.src}
+                alt={it.label}
+                loading="lazy"
+                width={1024}
+                height={1024}
+                className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
               <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-sm font-semibold text-white opacity-0 transition-opacity group-hover:opacity-100">
                 {it.label}
               </figcaption>

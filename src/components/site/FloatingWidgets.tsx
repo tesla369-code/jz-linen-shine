@@ -16,10 +16,18 @@ export function FloatingWidgets() {
         <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-whatsapp/40" />
       </a>
       <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-border bg-background/95 backdrop-blur md:hidden">
-        <a href={`tel:${SITE.phone}`} className="flex flex-col items-center gap-1 py-2.5 text-xs font-medium">
+        <a
+          href={`tel:${SITE.phone}`}
+          className="flex flex-col items-center gap-1 py-2.5 text-xs font-medium"
+        >
           <Phone className="h-5 w-5 text-primary" /> Call
         </a>
-        <a href={waLink()} target="_blank" rel="noopener" className="flex flex-col items-center gap-1 border-x border-border py-2.5 text-xs font-medium">
+        <a
+          href={waLink()}
+          target="_blank"
+          rel="noopener"
+          className="flex flex-col items-center gap-1 border-x border-border py-2.5 text-xs font-medium"
+        >
           <MessageCircle className="h-5 w-5 text-whatsapp" /> WhatsApp
         </a>
         <Link to="/quote" className="flex flex-col items-center gap-1 py-2.5 text-xs font-medium">
