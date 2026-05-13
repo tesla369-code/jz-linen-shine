@@ -48,7 +48,7 @@ function Contact() {
               title="Call us"
               value={SITE.phoneDisplay}
               href={`tel:${SITE.phone}`}
-              sub="Mon–Sat 6:00–20:00"
+              sub={SITE.hours}
             />
             <ContactCard
               icon={MessageCircle}
@@ -70,12 +70,7 @@ function Contact() {
               value={`${SITE.address.street}, ${SITE.address.city} ${SITE.address.postcode}`}
               sub="Tours by appointment"
             />
-            <ContactCard
-              icon={Clock}
-              title="Opening hours"
-              value={SITE.hours}
-              sub="Sundays: emergency line only"
-            />
+            <ContactCard icon={Clock} title="Opening hours" value={SITE.hours} sub="" />
             <div className="overflow-hidden rounded-2xl border border-border shadow-card">
               <iframe
                 title="JZ Linen location — Stanley House, Bramble Road, Swindon SN2 8ER"
