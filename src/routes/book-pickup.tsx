@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Truck, Clock, ShieldCheck } from "lucide-react";
 import { SITE } from "@/lib/site";
-import { saveBooking } from "@/lib/bookings-store";
+import { createBooking } from "@/lib/supabase-data";
 
 export const Route = createFileRoute("/book-pickup")({
   head: () => ({
@@ -55,7 +55,7 @@ function BookPickup() {
         <div className="grid gap-10 lg:grid-cols-[2fr_1fr]">
           <form
             className="rounded-2xl border border-border bg-card p-6 shadow-card md:p-10"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               setSubmitting(true);
 
@@ -70,14 +70,14 @@ function BookPickup() {
               }
 
               try {
-                saveBooking(r.data);
-                toast.success("Pickup request saved. You can view it in Admin on this browser.");
+                await createBooking(r.data);
+                toast.success("Pickup request sent. Our team will be in touch shortly.");
                 form.reset();
               } catch (err) {
                 console.error(err);
-                toast.error(
-                  "Could not save your booking in this browser. Please check local storage.",
-                );
+                const message =
+                  err instanceof Error ? err.message : "Could not submit your booking.";
+                toast.error(message);
               } finally {
                 setSubmitting(false);
               }

@@ -1,8 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "14.5";
   };
@@ -62,6 +60,126 @@ export type Database = {
         };
         Relationships: [];
       };
+      contact_messages: {
+        Row: {
+          created_at: string;
+          email: string;
+          id: string;
+          message: string;
+          name: string;
+          phone: string | null;
+          status: Database["public"]["Enums"]["request_status"];
+          subject: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+          id?: string;
+          message: string;
+          name: string;
+          phone?: string | null;
+          status?: Database["public"]["Enums"]["request_status"];
+          subject: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          id?: string;
+          message?: string;
+          name?: string;
+          phone?: string | null;
+          status?: Database["public"]["Enums"]["request_status"];
+          subject?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      profiles: {
+        Row: {
+          created_at: string;
+          email: string;
+          id: string;
+          name: string;
+          phone: string | null;
+          role: Database["public"]["Enums"]["app_role"];
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+          id: string;
+          name: string;
+          phone?: string | null;
+          role?: Database["public"]["Enums"]["app_role"];
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          id?: string;
+          name?: string;
+          phone?: string | null;
+          role?: Database["public"]["Enums"]["app_role"];
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      quote_requests: {
+        Row: {
+          business: string;
+          city: string;
+          contact: string;
+          created_at: string;
+          details: string | null;
+          email: string;
+          frequency: string;
+          id: string;
+          industry: string;
+          phone: string;
+          role: string | null;
+          rooms: string | null;
+          status: Database["public"]["Enums"]["request_status"];
+          updated_at: string;
+          volume: string;
+        };
+        Insert: {
+          business: string;
+          city: string;
+          contact: string;
+          created_at?: string;
+          details?: string | null;
+          email: string;
+          frequency: string;
+          id?: string;
+          industry: string;
+          phone: string;
+          role?: string | null;
+          rooms?: string | null;
+          status?: Database["public"]["Enums"]["request_status"];
+          updated_at?: string;
+          volume: string;
+        };
+        Update: {
+          business?: string;
+          city?: string;
+          contact?: string;
+          created_at?: string;
+          details?: string | null;
+          email?: string;
+          frequency?: string;
+          id?: string;
+          industry?: string;
+          phone?: string;
+          role?: string | null;
+          rooms?: string | null;
+          status?: Database["public"]["Enums"]["request_status"];
+          updated_at?: string;
+          volume?: string;
+        };
+        Relationships: [];
+      };
       user_roles: {
         Row: {
           created_at: string;
@@ -95,10 +213,15 @@ export type Database = {
         };
         Returns: boolean;
       };
+      is_admin: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
     };
     Enums: {
       app_role: "admin" | "user";
       booking_status: "new" | "confirmed" | "completed" | "cancelled";
+      request_status: "new" | "in_progress" | "resolved" | "archived";
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -201,7 +324,7 @@ export type Enums<
 }
   ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    ? DatabaseWithoutInternals["public"]["Enums"][DefaultSchemaEnumNameOrOptions]
     : never;
 
 export type CompositeTypes<
@@ -218,7 +341,7 @@ export type CompositeTypes<
 }
   ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    ? DatabaseWithoutInternals["public"]["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never;
 
 export const Constants = {
@@ -226,6 +349,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "user"],
       booking_status: ["new", "confirmed", "completed", "cancelled"],
+      request_status: ["new", "in_progress", "resolved", "archived"],
     },
   },
 } as const;

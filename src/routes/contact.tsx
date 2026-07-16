@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock, MessageCircle, type LucideIcon } from "lucide-react";
 import { SITE, waLink } from "@/lib/site";
+import { createContactMessage } from "@/lib/supabase-data";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -85,21 +86,28 @@ function Contact() {
           </div>
           <form
             className="rounded-2xl border border-border bg-card p-6 shadow-card md:p-10"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               setLoading(true);
-              const data = Object.fromEntries(new FormData(e.currentTarget));
+              const form = e.currentTarget;
+              const data = Object.fromEntries(new FormData(form));
               const r = schema.safeParse(data);
               if (!r.success) {
                 toast.error(r.error.issues[0].message);
                 setLoading(false);
                 return;
               }
-              setTimeout(() => {
+              try {
+                await createContactMessage(r.data);
                 toast.success("Message sent! We'll be in touch shortly.");
-                (e.target as HTMLFormElement).reset();
+                form.reset();
+              } catch (err) {
+                console.error(err);
+                const message = err instanceof Error ? err.message : "Could not send your message.";
+                toast.error(message);
+              } finally {
                 setLoading(false);
-              }, 700);
+              }
             }}
           >
             <h2 className="font-display text-2xl font-bold">Send us a message</h2>

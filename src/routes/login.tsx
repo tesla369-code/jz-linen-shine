@@ -5,12 +5,7 @@ import { toast } from "sonner";
 import { Lock, UserPlus } from "lucide-react";
 import { PageHero } from "@/components/site/PageHero";
 import { Button } from "@/components/ui/button";
-import {
-  authenticateUser,
-  createUser,
-  isAdminCredentials,
-  setAdminSession,
-} from "@/lib/local-users-store";
+import { getCurrentProfile, signIn, signUpWithProfile } from "@/lib/supabase-data";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -23,7 +18,7 @@ export const Route = createFileRoute("/login")({
 });
 
 const loginSchema = z.object({
-  identifier: z.string().trim().min(1, "Email or username required").max(255),
+  identifier: z.string().trim().email("Enter your email address").max(255),
   password: z.string().min(1, "Password required").max(120),
 });
 
@@ -44,7 +39,7 @@ function Login() {
       <PageHero
         eyebrow="Account"
         title="Login or sign up."
-        sub="Admin and customer accounts are stored locally in this browser."
+        sub="Access your account using secure Supabase authentication."
       />
       <section className="container-page py-16">
         <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-6 shadow-card md:p-8">
@@ -70,7 +65,7 @@ function Login() {
           </div>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               setLoading(true);
               const form = e.currentTarget;
@@ -84,21 +79,10 @@ function Login() {
                     return;
                   }
 
-                  if (isAdminCredentials(parsed.data.identifier, parsed.data.password)) {
-                    setAdminSession();
-                    toast.success("Admin login successful");
-                    navigate({ to: "/admin" });
-                    return;
-                  }
-
-                  const user = authenticateUser(parsed.data.identifier, parsed.data.password);
-                  if (!user) {
-                    toast.error("No matching local user found");
-                    return;
-                  }
-
-                  toast.success(`Welcome back, ${user.name}`);
-                  navigate({ to: "/" });
+                  await signIn(parsed.data.identifier, parsed.data.password);
+                  const profile = await getCurrentProfile();
+                  toast.success(`Welcome back${profile?.name ? `, ${profile.name}` : ""}`);
+                  navigate({ to: profile?.role === "admin" ? "/admin" : "/" });
                   return;
                 }
 
@@ -108,13 +92,12 @@ function Login() {
                   return;
                 }
 
-                createUser(parsed.data);
-                toast.success("Account created and saved locally");
+                await signUpWithProfile(parsed.data);
+                toast.success("Account created. Check your email if confirmation is enabled.");
                 form.reset();
                 setMode("login");
               } catch (err) {
-                const message =
-                  err instanceof Error ? err.message : "Could not save account locally";
+                const message = err instanceof Error ? err.message : "Authentication failed";
                 toast.error(message);
               } finally {
                 setLoading(false);
@@ -123,7 +106,7 @@ function Login() {
           >
             {mode === "login" ? (
               <>
-                <Field name="identifier" label="Email or admin username" autoComplete="username" />
+                <Field name="identifier" label="Email" type="email" autoComplete="username" />
                 <Field
                   name="password"
                   label="Password"
@@ -165,7 +148,7 @@ function Login() {
           </form>
 
           <p className="mt-3 text-xs text-muted-foreground">
-            Local-only account data is visible to Admin on this browser.
+            Admin access is granted by setting your profile role to admin in Supabase.
           </p>
         </div>
       </section>
