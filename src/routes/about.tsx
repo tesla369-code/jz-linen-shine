@@ -8,16 +8,9 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About JZ Linen & Laundry — UK Commercial Linen Experts" },
-      {
-        name: "description",
-        content:
-          "Family-founded in 2008, JZ Linen is the UK's premium commercial linen rental and laundry partner — serving 400+ hotels, restaurants, clinics and spas.",
-      },
+      { name: "description", content: "Family-founded in 2023, JZ Linen is the UK's premium commercial linen rental and laundry partner — serving 400+ hotels, restaurants, clinics and spas." },
       { property: "og:title", content: "About JZ Linen & Laundry" },
-      {
-        property: "og:description",
-        content: "16+ years delivering hotel-grade linen services across the UK.",
-      },
+      { property: "og:description", content: "3+ years delivering hotel-grade linen services across the UK." },
       { property: "og:image", content: `${SITE.domain}/og-about.jpg` },
     ],
   }),
@@ -25,83 +18,34 @@ export const Route = createFileRoute("/about")({
 });
 
 const VALUES = [
-  {
-    icon: Award,
-    title: "Quality without compromise",
-    desc: "Every load inspected. Every fold deliberate. The standard never moves.",
-  },
-  {
-    icon: Leaf,
-    title: "Genuine sustainability",
-    desc: "98% water reclaimed, biodegradable chemistry, low-emission UK fleet.",
-  },
-  {
-    icon: Users,
-    title: "Real partnerships",
-    desc: "Dedicated account managers — not call centres. We know your operation by name.",
-  },
-  {
-    icon: Target,
-    title: "Operational obsession",
-    desc: "On-time delivery is non-negotiable. We measure ourselves on yours.",
-  },
+  { icon: Award, title: "Quality without compromise", desc: "Every load inspected. Every fold deliberate. The standard never moves." },
+  { icon: Leaf, title: "Genuine sustainability", desc: "98% water reclaimed, biodegradable chemistry, low-emission UK fleet." },
+  { icon: Users, title: "Real partnerships", desc: "Dedicated account managers — not call centres. We know your operation by name." },
+  { icon: Target, title: "Operational obsession", desc: "On-time delivery is non-negotiable. We measure ourselves on yours." },
 ];
 
 function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="About us"
-        title="Sixteen years of getting linen exactly right."
-        sub="Founded in East London in 2008, JZ Linen & Laundry has grown from a single van and 200 sq ft to a 35,000 sq ft processing facility serving over 400 venues across the UK."
-      />
+      <PageHero eyebrow="About us" title="Sixteen years of getting linen exactly right." sub="Founded in East London in 2023, JZ Linen & Laundry has grown from a single van and 200 sq ft to a 4,000 sq ft processing facility serving over 1 venue across the UK." />
       <section className="container-page py-20">
         <div className="grid items-center gap-12 lg:grid-cols-2">
-          <img
-            src={facility}
-            alt="Inside the JZ Linen processing facility"
-            loading="lazy"
-            width={1024}
-            height={1024}
-            className="rounded-2xl shadow-elegant"
-          />
+          <img src={facility} alt="Inside the JZ Linen processing facility" loading="lazy" width={1024} height={1024} className="rounded-2xl shadow-elegant" />
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-primary">
-              Our story
-            </span>
-            <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">
-              Built by hospitality people, for hospitality people.
-            </h2>
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-primary">Our story</span>
+            <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Built by hospitality people, for hospitality people.</h2>
             <div className="mt-5 space-y-4 text-muted-foreground">
-              <p>
-                JZ Linen was started by Jonathan Zaman after a decade running hotel housekeeping
-                departments — frustrated that no commercial laundry combined hotel-grade quality
-                with operational reliability.
-              </p>
-              <p>
-                Today the company is still independently owned and proudly British. We invest
-                continuously in technology, training and our people because we believe the
-                back-of-house experience defines the front-of-house result.
-              </p>
-              <p>
-                From boutique restaurants to national hotel groups, every contract gets the same
-                answer: do it properly, do it on time, every time.
-              </p>
+             
             </div>
           </div>
         </div>
       </section>
       <section className="bg-silver py-20">
         <div className="container-page">
-          <h2 className="text-center font-display text-3xl font-bold md:text-4xl">
-            What we stand for
-          </h2>
+          <h2 className="text-center font-display text-3xl font-bold md:text-4xl">What we stand for</h2>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v) => (
-              <div
-                key={v.title}
-                className="rounded-2xl border border-border bg-card p-7 text-center shadow-card"
-              >
+              <div key={v.title} className="rounded-2xl border border-border bg-card p-7 text-center shadow-card">
                 <div className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-glow text-primary-foreground">
                   <v.icon className="h-7 w-7" />
                 </div>
