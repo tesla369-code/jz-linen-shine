@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Menu, X, Phone, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SITE } from "@/lib/site";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.jpg";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -22,11 +22,11 @@ export function Header() {
         <Link to="/" className="flex min-w-0 shrink items-center gap-2" aria-label={SITE.name}>
           <img
             src={logo}
-            alt=""
+            alt={SITE.name}
             width={44}
             height={44}
             fetchPriority="high"
-            className="h-9 w-9 shrink-0 rounded-lg object-cover shadow-card ring-1 ring-border lg:h-10 lg:w-10"
+            className="h-9 w-9 shrink-0 object-contain lg:h-10 lg:w-10"
           />
           <div className="min-w-0 leading-tight">
             <div className="truncate font-display text-sm font-bold tracking-tight sm:text-base lg:text-base xl:text-lg">
