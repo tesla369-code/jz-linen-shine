@@ -27,7 +27,7 @@ const VALUES = [
 function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="About us" title="Sixteen years of getting linen exactly right." sub="Founded in East London in 2023, JZ Linen & Laundry has grown from a single van and 200 sq ft to a 4,000 sq ft processing facility serving over 1 venue across the UK." />
+      <PageHero eyebrow="About us" title="Three years of getting linen exactly right." sub="Founded in East London in 2023, JZ Linen & Laundry has grown from a single van and 200 sq ft to a 4,000 sq ft processing facility serving over 1 venue across the UK." />
       <section className="container-page py-20">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <img src={facility} alt="Inside the JZ Linen processing facility" loading="lazy" width={1024} height={1024} className="rounded-2xl shadow-elegant" />
